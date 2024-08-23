@@ -59,7 +59,7 @@
         job.estimationSlices = Infinity;
         job.greedyEstimation = true;
         job.requires("dcp-chess/chess.js");
-        job.computeGroups.push({ joinKey: "insight", joinSecret: "dcp" });
+        // job.computeGroups.push({ joinKey: "insight", joinSecret: "dcp" });
 
         const moveScores = await job.exec(0.005);
         //const moveScores = await job.localExec(31);
