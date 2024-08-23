@@ -52,9 +52,3 @@ async function deploy() {
   const moveScores = await job.exec(0.005);
   //const moveScores = await job.localExec(31);
 }
-
-const scheduler = "https://scheduler.distributed.computer";
-require("dcp-client")
-  .init(scheduler)
-  .then(deploy)
-  .finally(() => setImmediate(process.exit));
