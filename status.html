@@ -23,8 +23,8 @@
       wallet.add(keystoreBankObject);
 
       async function deploy() {
-        console.log(compute.status(keystoreIdObject));
-        console.log(compute.status(keystoreBankObject));
+        // console.log(await compute.status(keystoreIdObject)); // same
+        console.log(await compute.status(keystoreBankObject));
       }
 
       window.deploy = deploy;
