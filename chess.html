@@ -39,9 +39,10 @@
         job.on("status", (status) => console.log("Status:", status));
       }
 
-      const slices = document.getElementById("slices").valueAsNumber;
       async function deploy() {
         const inputSet = [];
+
+        const slices = document.getElementById("slices").valueAsNumber;
         for (let i = 0; i < slices; i++) {
           inputSet.push(i);
         }
