@@ -39,29 +39,35 @@
         job.on("status", (status) => console.log("Status:", status));
       }
 
+      const slices = document.getElementById("slices").valueAsNumber;
       async function deploy() {
         const inputSet = [];
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < slices; i++) {
           inputSet.push(i);
         }
 
-        async function workFunction(_input, depth) {
+        async function workFunction(_input, delay) {
           progress(0);
 
-          return { result: _input, movePlayed: depth };
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+          await sleep(delay);
+
+          return { result: _input, movePlayed: delay };
         }
 
-        const job = compute.for(inputSet, workFunction, [100]);
+        const delay = document.getElementById("delay").valueAsNumber;
+        const job = compute.for(inputSet, workFunction, [delay]);
         addJobEventListeners(job);
         job.public.name = "Distributed Chess Engine";
         job.public.description = "Making pro-level analysis more accessible";
         job.public.link = "https://github.com/SophiaPerzan/JS-Chess";
         // job.estimationSlices = Infinity;
         // job.greedyEstimation = true;
-        job.requires("dcp-chess/chess.js");
+        // job.requires("dcp-chess/chess.js");
         // job.computeGroups.push({ joinKey: "insight", joinSecret: "dcp" });
 
-        const moveScores = await job.exec(0.005);
+        const cost = document.getElementById("cost").valueAsNumber;
+        const moveScores = await job.exec(cost);
         //const moveScores = await job.localExec(31);
       }
 
@@ -79,6 +85,9 @@
     </script>
   </head>
   <body>
-    <input type="button" id="deploy" value="Deploy" onclick="deploy()" />
+    slices: <input type="number" id="slices" value="100" min="1" step="10" /><br />
+    delay: <input type="number" id="delay" value="1000" min="100" step="1000" /><br />
+    cost: <input type="number" id="cost" value="0.005" min="0.001" step="0.001" /><br />
+    <br /><input type="button" id="deploy" value="Deploy" onclick="deploy()" /><br />
   </body>
 </html>
