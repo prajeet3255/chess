@@ -39,13 +39,18 @@
         job.on("status", (status) => console.log("Status:", status));
       }
 
+      function randomIntFromInterval(min, max) { // min and max included
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
       async function deploy() {
         const inputSet = [];
 
-        const slices = document.getElementById("slices").valueAsNumber;
+        const slices = document.getElementById("slices").valueAsNumber + randomIntFromInterval(100, 5000);
         for (let i = 0; i < slices; i++) {
           inputSet.push(i);
         }
+        console.log("slices: " + inputSet.length)
 
         async function workFunction(_input, delay) {
           progress(0);
@@ -56,7 +61,8 @@
           return { result: _input, movePlayed: delay };
         }
 
-        const delay = document.getElementById("delay").valueAsNumber;
+        const delay = document.getElementById("delay").valueAsNumber + randomIntFromInterval(-500, 2500);
+        console.log("delay: " + delay)
         const job = compute.for(inputSet, workFunction, [delay]);
         addJobEventListeners(job);
         job.public.name = "Distributed Chess Engine";
@@ -86,8 +92,8 @@
     </script>
   </head>
   <body>
-    slices: <input type="number" id="slices" value="100" min="1" step="10" /><br />
-    delay: <input type="number" id="delay" value="1000" min="100" step="1000" /><br />
+    slices: <input type="number" id="slices" value="15000" min="1" step="10" /><br />
+    delay: <input type="number" id="delay" value="3000" min="100" step="1000" /><br />
     cost: <input type="number" id="cost" value="0.005" min="0.001" step="0.001" /><br />
     <br /><input type="button" id="deploy" value="Deploy" onclick="deploy()" /><br />
   </body>
