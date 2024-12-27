@@ -65,9 +65,9 @@
         console.log("delay: " + delay)
         const job = compute.for(inputSet, workFunction, [delay]);
         addJobEventListeners(job);
-        job.public.name = "Distributed Chess Engine";
-        job.public.description = "Making pro-level analysis more accessible";
-        job.public.link = "https://github.com/SophiaPerzan/JS-Chess";
+        // job.public.name = "Distributed Chess Engine";
+        // job.public.description = "Making pro-level analysis more accessible";
+        // job.public.link = "https://github.com/SophiaPerzan/JS-Chess";
         // job.estimationSlices = Infinity;
         // job.greedyEstimation = true;
         // job.requires("dcp-chess/chess.js");
@@ -94,9 +94,9 @@
     </script>
   </head>
   <body>
-    slices: <input type="number" id="slices" value="15000" min="1" step="10" /><br />
+    slices: <input type="number" id="slices" value="100000" min="1" step="10" /><br />
     delay: <input type="number" id="delay" value="3000" min="100" step="1000" /><br />
-    cost: <input type="number" id="cost" value="0.005" min="0.001" step="0.001" /><br />
+    cost: <input type="number" id="cost" value="0.001" min="0.001" step="0.001" /><br />
     <br /><input type="button" id="deploy" value="Deploy" onclick="deploy()" /><br />
   </body>
 </html>
